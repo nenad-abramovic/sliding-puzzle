@@ -1,7 +1,8 @@
 
 #container {
   width: 176px;
-  
+  height: 176px;
+  border: 2px solid black;
 }
 
 #container div {
@@ -12,4 +13,9 @@
   text-align: center;
   border: 1px solid black;
   margin: 1px;
+}
+
+#container #f-empty {
+  border: 0;
+  margin: 2px;
 }
