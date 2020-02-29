@@ -1,0 +1,15 @@
+
+#container {
+  width: 176px;
+  
+}
+
+#container div {
+  width: 40px;
+  height: 40px;
+  float: left;
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid black;
+  margin: 1px;
+}
