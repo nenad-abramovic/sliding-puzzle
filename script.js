@@ -37,19 +37,6 @@ function shuffleBoard() {
     board[Math.floor(i / 4)][i % 4] = board[Math.floor(j / 4)][j % 4];
     board[Math.floor(j / 4)][j % 4] = tmp;
   }
-
-  let permutationCount = 0;
-  for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 4; j++) {
-      permutationCount += Math.abs(Math.floor(board[i][j].textContent / 4) - i) + Math.abs(board[i][j].textContent % 4 - j);
-    }
-  }
-
-  if ((permutationCount / 2) % 2 === 0) {
-    let tmp = board[0][0];
-    board[0][0] = board[0][1];
-    board[0][1] = tmp;
-  }
 }
 
 function resetEmptyFieldPos() {
