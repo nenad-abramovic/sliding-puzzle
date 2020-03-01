@@ -25,7 +25,7 @@ function createBoard() {
       board[i].push(field);
     }
   }
-  console.log(board);
+
   board[3][3].id = 'f-empty';
   board[3][3].textContent = '';
 }
@@ -44,7 +44,7 @@ function shuffleBoard() {
       permutationCount += Math.abs(Math.floor(board[i][j].textContent / 4) - i) + Math.abs(board[i][j].textContent % 4 - j);
     }
   }
-  console.log((permutationCount / 2) % 2 === 1);
+
   if ((permutationCount / 2) % 2 === 0) {
     let tmp = board[0][0];
     board[0][0] = board[0][1];
@@ -167,7 +167,6 @@ function handleKeyUp(e) {
 function isSolved() {
   for (let i = 14; i > -1; i--) {
     if (board[Math.floor(i / 4)][i % 4].textContent !== `${i + 1}`) {
-      console.log(board[Math.floor(i / 4)][i % 4].textContent, i + 1)
       return false;
     }
   }
