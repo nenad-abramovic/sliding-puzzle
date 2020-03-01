@@ -1,31 +1,31 @@
 const container = document.getElementById('container');
 const newGameBtn = document.getElementById('new-game-btn');
 const moveCount = document.getElementById('move-count');
+const message = document.getElementById('message');
 
 const board = [];
+let emptyField = { row: 3, col: 3 };
 let totalMoves;
 resetMoveCount();
 startNewGame();
-let emptyField = { row: 3, col: 3 };
 
 
 window.addEventListener('keyup', handleKeyUp);
-newGameBtn.addEventListener('click', function () {
-  clearDOMContainer();
-  startNewGame();
-});
+newGameBtn.addEventListener('click', startNewGame);
 
 function createBoard() {
+  board.length = 0;
   for (let i = 0; i < 4; i++) {
     board.push([]);
 
     for (let j = 1; j < 5; j++) {
       let field = document.createElement('div');
       field.textContent = i * 4 + j;
+      field.id = '';
       board[i].push(field);
     }
   }
-
+  console.log(board);
   board[3][3].id = 'f-empty';
   board[3][3].textContent = '';
 }
@@ -37,6 +37,26 @@ function shuffleBoard() {
     board[Math.floor(i / 4)][i % 4] = board[Math.floor(j / 4)][j % 4];
     board[Math.floor(j / 4)][j % 4] = tmp;
   }
+
+  let permutationCount = 0;
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) {
+      permutationCount += Math.abs(Math.floor(board[i][j].textContent / 4) - i) + Math.abs(board[i][j].textContent % 4 - j);
+    }
+  }
+  console.log((permutationCount / 2) % 2 === 1);
+  if ((permutationCount / 2) % 2 === 1) {
+    let tmp = board[0][0];
+    board[0][0] = board[0][1];
+    board[0][1] = tmp;
+  }
+}
+
+function resetEmptyFieldPos() {
+  emptyField = {
+    row: 3,
+    col: 3
+  };
 }
 
 function addBoardToDOMContainer() {
@@ -48,13 +68,17 @@ function addBoardToDOMContainer() {
 }
 
 function clearDOMContainer() {
-  container.innerHTML = '';
+  while (container.firstChild) {
+    container.removeChild(container.lastChild);
+  }
 }
 
 function startNewGame() {
+  clearDOMContainer();
   resetMoveCount();
   createBoard();
   shuffleBoard();
+  resetEmptyFieldPos();
   addBoardToDOMContainer();
 }
 
@@ -133,4 +157,18 @@ function handleKeyUp(e) {
     default:
       break;
   }
+
+  if (isSolved()) {
+    message.textContent = `Браво! Победио си! Свака част! Игру си завршио у ${totalMoves} потеза.`;
+    startNewGame();
+  }
+}
+
+function isSolved() {
+  for (let i = 14; i > -1; i--) {
+    if (board[Math.floor(i / 4)][i % 4] !== i + 1) {
+      return false;
+    }
+  }
+  return true;
 }
