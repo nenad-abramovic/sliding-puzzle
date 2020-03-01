@@ -45,7 +45,7 @@ function shuffleBoard() {
     }
   }
   console.log((permutationCount / 2) % 2 === 1);
-  if ((permutationCount / 2) % 2 === 1) {
+  if ((permutationCount / 2) % 2 === 0) {
     let tmp = board[0][0];
     board[0][0] = board[0][1];
     board[0][1] = tmp;
@@ -166,7 +166,8 @@ function handleKeyUp(e) {
 
 function isSolved() {
   for (let i = 14; i > -1; i--) {
-    if (board[Math.floor(i / 4)][i % 4] !== i + 1) {
+    if (board[Math.floor(i / 4)][i % 4].textContent !== `${i + 1}`) {
+      console.log(board[Math.floor(i / 4)][i % 4].textContent, i + 1)
       return false;
     }
   }
